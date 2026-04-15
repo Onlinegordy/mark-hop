@@ -424,17 +424,79 @@ const MOVES=[{opt:"Neighbourhood walk",time:"20–30 min",best:"Morning or after
 (function(){const el=document.getElementById("move-cards");MOVES.forEach(m=>{el.innerHTML+=`<div class="card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><span class="move-option">${m.opt}</span><span class="move-time">${m.time}</span></div><div class="move-best">Best: ${m.best}</div><div class="move-targets">${m.tgt}</div></div>`;});})();
 
 // ─── GYM ───────────────────────────────────────
-const GYM_A=[{name:"Goblet Squat",sets:"3 x 12",detail:"Hold dumbbell at chest, squat to parallel, drive back up."},{name:"Dumbbell Bench Press",sets:"3 x 12",detail:"Flat bench, press dumbbells up, lower with control."},{name:"Lat Pulldown",sets:"3 x 12",detail:"Wide grip, pull to upper chest, squeeze shoulder blades."},{name:"Dumbbell Shoulder Press",sets:"3 x 10",detail:"Seated or standing, press overhead, lower to ear level."},{name:"Dumbbell Row",sets:"3 x 12 each",detail:"One hand on bench, row dumbbell to hip, squeeze at top."},{name:"Plank Hold",sets:"3 x 30 sec",detail:"Forearms on floor, body straight, brace your core."}];
-const GYM_B=[{name:"Romanian Deadlift",sets:"3 x 12",detail:"Dumbbells in front of thighs, hinge at hips, feel hamstrings stretch."},{name:"Incline Dumbbell Press",sets:"3 x 12",detail:"Bench at 30°, press dumbbells up, lower with control."},{name:"Seated Cable Row",sets:"3 x 12",detail:"Sit tall, pull handle to stomach, squeeze shoulder blades."},{name:"Lateral Raises",sets:"3 x 12",detail:"Slight bend in elbows, raise to shoulder height, lower slow."},{name:"Leg Press",sets:"3 x 12",detail:"Feet shoulder-width, press away, don't lock knees."},{name:"Dead Bug",sets:"3 x 10 each",detail:"On your back, opposite arm/leg extend, keep lower back flat."}];
+// 4 sessions that rotate: A1/B1, A2/B2, A1/B2, A2/B1
+function ytLink(name){return "https://www.youtube.com/results?search_query=how+to+"+encodeURIComponent(name)+"+dumbbell+form";}
+
+const GYM_A1=[
+  {name:"Goblet Squat",sets:"3 x 12",detail:"Hold dumbbell at chest, squat to parallel, drive back up."},
+  {name:"Dumbbell Bench Press",sets:"3 x 12",detail:"Flat bench, press dumbbells up, lower with control."},
+  {name:"Lat Pulldown",sets:"3 x 12",detail:"Wide grip, pull to upper chest, squeeze shoulder blades."},
+  {name:"Dumbbell Shoulder Press",sets:"3 x 10",detail:"Seated or standing, press overhead, lower to ear level."},
+  {name:"Dumbbell Row",sets:"3 x 12 each",detail:"One hand on bench, row dumbbell to hip, squeeze at top."},
+  {name:"Plank Hold",sets:"3 x 30 sec",detail:"Forearms on floor, body straight, brace your core."},
+];
+const GYM_A2=[
+  {name:"Leg Press",sets:"3 x 12",detail:"Feet shoulder-width, press away, don't lock knees."},
+  {name:"Incline Dumbbell Press",sets:"3 x 12",detail:"Bench at 30°, press dumbbells up, lower with control."},
+  {name:"Cable Face Pull",sets:"3 x 15",detail:"Rope attachment at face height, pull to ears, squeeze rear delts."},
+  {name:"Arnold Press",sets:"3 x 10",detail:"Start palms facing you, rotate as you press overhead."},
+  {name:"Chest Supported Row",sets:"3 x 12",detail:"Lie face down on incline bench, row dumbbells to hips."},
+  {name:"Ab Wheel / Ball Rollout",sets:"3 x 10",detail:"Kneel, roll out slowly, brace core, pull back in."},
+];
+const GYM_B1=[
+  {name:"Romanian Deadlift",sets:"3 x 12",detail:"Dumbbells in front of thighs, hinge at hips, feel hamstrings stretch."},
+  {name:"Seated Cable Row",sets:"3 x 12",detail:"Sit tall, pull handle to stomach, squeeze shoulder blades."},
+  {name:"Lateral Raises",sets:"3 x 12",detail:"Slight bend in elbows, raise to shoulder height, lower slow."},
+  {name:"Leg Curl",sets:"3 x 12",detail:"Machine or Swiss ball, curl heels to glutes, control the release."},
+  {name:"Dumbbell Pullover",sets:"3 x 12",detail:"Lie on bench, arc dumbbell overhead, feel the stretch, pull back."},
+  {name:"Dead Bug",sets:"3 x 10 each",detail:"On your back, opposite arm/leg extend, keep lower back flat."},
+];
+const GYM_B2=[
+  {name:"Sumo Deadlift",sets:"3 x 12",detail:"Wide stance, toes out, dumbbell between feet, drive hips through."},
+  {name:"Single Arm Cable Row",sets:"3 x 12 each",detail:"One arm at a time, rotate slightly, squeeze at the top."},
+  {name:"Rear Delt Fly",sets:"3 x 15",detail:"Bent over or on incline bench, fly arms out, squeeze shoulder blades."},
+  {name:"Walking Lunges",sets:"3 x 10 each",detail:"Dumbbells by your sides, step forward, knee to 90°, drive up."},
+  {name:"Cable Woodchop",sets:"3 x 12 each",detail:"High to low diagonal chop, rotate through the core."},
+  {name:"Pallof Press",sets:"3 x 10 each",detail:"Cable at chest height, press out, resist rotation, hold 2 sec."},
+];
+
+// Rotation: which sessions per week
+const GYM_ROTATION=[
+  {a:GYM_A1,b:GYM_B1,aLabel:"SESSION A1 — PUSH & SQUAT",bLabel:"SESSION B1 — PULL & HINGE"},
+  {a:GYM_A2,b:GYM_B2,aLabel:"SESSION A2 — PRESS & LEGS",bLabel:"SESSION B2 — PULL & CORE"},
+  {a:GYM_A1,b:GYM_B2,aLabel:"SESSION A1 — PUSH & SQUAT",bLabel:"SESSION B2 — PULL & CORE"},
+  {a:GYM_A2,b:GYM_B1,aLabel:"SESSION A2 — PRESS & LEGS",bLabel:"SESSION B1 — PULL & HINGE"},
+];
+function getRotation(week){return GYM_ROTATION[week%4];}
 
 function renderGymWeekSel(){const el=document.getElementById("gym-wk-sel");el.innerHTML="";for(let i=0;i<WEEKS;i++){const w=gymData[i]||{};const has=Object.values(w).some(v=>v);const cls=i===gymWeek?"active":has?"has-data":"";el.innerHTML+=`<button class="wk-btn ${cls}" data-gw="${i}">WK ${i+1}${has?" ✓":""}</button>`;}}
-function renderGym(){const el=document.getElementById("gym-sessions");const wk=gymData[gymWeek]||{};
-let h=`<div class="gym-session"><div class="gym-session-title">SESSION A — PUSH & SQUAT</div><div class="gym-session-sub">Full body · 35–40 minutes · moderate weight</div>`;
-GYM_A.forEach((ex,i)=>{const on=wk["a-"+i];h+=`<div class="gym-exercise"><button class="gym-check ${on?"on":""}" data-gs="a" data-gi="${i}">${on?"✓":""}</button><div><div class="gym-exname">${ex.name}</div><div class="gym-exdetail">${ex.detail}</div></div><div class="gym-sets">${ex.sets}</div></div>`;});
-h+=`</div><div class="gym-session"><div class="gym-session-title">SESSION B — PULL & HINGE</div><div class="gym-session-sub">Full body · 35–40 minutes · moderate weight</div>`;
-GYM_B.forEach((ex,i)=>{const on=wk["b-"+i];h+=`<div class="gym-exercise"><button class="gym-check ${on?"on":""}" data-gs="b" data-gi="${i}">${on?"✓":""}</button><div><div class="gym-exname">${ex.name}</div><div class="gym-exdetail">${ex.detail}</div></div><div class="gym-sets">${ex.sets}</div></div>`;});
-h+=`</div><div class="alert"><strong>NOTES:</strong> Start light. The goal is completing the sessions, not lifting heavy. Rest 60–90 seconds between sets. These pair with Padel x2 and Run x1 for your 5 weekly exercise targets.</div>`;
-el.innerHTML=h;}
+
+function renderGym(){
+  const el=document.getElementById("gym-sessions");const wk=gymData[gymWeek]||{};
+  const rot=getRotation(gymWeek);
+  function renderSession(exercises,prefix,title){
+    let h=`<div class="gym-session"><div class="gym-session-title">${title}</div><div class="gym-session-sub">Full body · 35–40 minutes · moderate weight · Week ${gymWeek+1}</div>`;
+    exercises.forEach((ex,i)=>{
+      const on=wk[prefix+"-"+i];
+      h+=`<div class="gym-exercise">
+        <button class="gym-check ${on?"on":""}" data-gs="${prefix}" data-gi="${i}">${on?"✓":""}</button>
+        <div style="flex:1">
+          <a href="${ytLink(ex.name)}" target="_blank" rel="noopener" style="text-decoration:none">
+            <div class="gym-exname" style="display:flex;align-items:center;gap:6px">${ex.name} <span style="font-size:11px;color:var(--accent);opacity:0.7">▶ HOW TO</span></div>
+          </a>
+          <div class="gym-exdetail">${ex.detail}</div>
+        </div>
+        <div class="gym-sets">${ex.sets}</div>
+      </div>`;
+    });
+    h+=`</div>`;
+    return h;
+  }
+  let h=renderSession(rot.a,"a",rot.aLabel);
+  h+=renderSession(rot.b,"b",rot.bLabel);
+  h+=`<div class="alert"><strong>NOTES:</strong> Start light. The goal is completing the sessions, not lifting heavy. Rest 60–90 seconds between sets. Tap any exercise name to see a video of how it's done. Sessions rotate every week to keep things fresh — 4 different combos across the 12 weeks.</div>`;
+  el.innerHTML=h;
+}
 document.getElementById("gym-wk-sel").addEventListener("click",e=>{const b=e.target.closest(".wk-btn");if(!b)return;gymWeek=+b.dataset.gw;renderGymWeekSel();renderGym();});
 document.getElementById("gym-sessions").addEventListener("click",e=>{const b=e.target.closest(".gym-check");if(!b)return;if(!gymData[gymWeek])gymData[gymWeek]={};const k=b.dataset.gs+"-"+b.dataset.gi;gymData[gymWeek][k]=!gymData[gymWeek][k];sv(GK,gymData);renderGymWeekSel();renderGym();});
 renderGymWeekSel();renderGym();
