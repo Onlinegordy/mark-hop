@@ -146,13 +146,13 @@ body{background:var(--bg);color:var(--white);font-family:var(--ff-body);min-heig
 
 <nav class="nav"><div class="nav-inner" id="nav">
   <button class="nav-btn active" data-tab="dashboard">DASHBOARD</button>
-  <button class="nav-btn" data-tab="bloods">BLOODS</button>
+  <button class="nav-btn" data-tab="gym">GYM</button>
   <button class="nav-btn" data-tab="nutrition">NUTRITION</button>
   <button class="nav-btn" data-tab="supps">SUPPS</button>
   <button class="nav-btn" data-tab="movement">MOVEMENT</button>
-  <button class="nav-btn" data-tab="gym">GYM</button>
   <button class="nav-btn" data-tab="sleep">SLEEP</button>
   <button class="nav-btn" data-tab="review">REVIEW</button>
+  <button class="nav-btn" data-tab="bloods">BLOODS</button>
 </div></nav>
 
 <div class="container">
@@ -164,7 +164,6 @@ body{background:var(--bg);color:var(--white);font-family:var(--ff-body);min-heig
   <div id="week-banner"></div>
   <div id="daily-habits"></div>
   <div style="margin-top:8px" id="weekly-exercise"></div>
-  <div style="margin-top:8px" id="weekly-alcohol"></div>
   <h2 class="h2" style="margin-top:32px">12-WEEK OVERVIEW</h2>
   <p class="p-intro">Your programme at a glance. Each week shows overall completion percentage.</p>
   <div class="overview" id="overview-grid"></div>
@@ -180,6 +179,13 @@ body{background:var(--bg);color:var(--white);font-family:var(--ff-body);min-heig
 <div class="section" id="sec-nutrition">
   <h2 class="h2">NUTRITION OPERATING FRAMEWORK</h2>
   <p class="p-intro">Not a meal plan. Operating principles — inputs that improve outputs.</p>
+  <div class="card" style="border-left:3px solid var(--accent);margin-bottom:16px">
+    <div style="display:flex;justify-content:space-around;text-align:center;flex-wrap:wrap;gap:16px">
+      <div><div style="font-family:var(--ff-head);font-size:36px;color:var(--accent);letter-spacing:0.02em">2500</div><div style="font-family:var(--ff-sub);font-size:12px;color:var(--t3);text-transform:uppercase;letter-spacing:0.06em">Daily Calorie Target (kcal)</div></div>
+      <div><div style="font-family:var(--ff-head);font-size:36px;color:var(--accent);letter-spacing:0.02em">180g</div><div style="font-family:var(--ff-sub);font-size:12px;color:var(--t3);text-transform:uppercase;letter-spacing:0.06em">Daily Protein Minimum</div></div>
+    </div>
+    <div style="margin-top:12px;font-size:12px;color:var(--t4);text-align:center;line-height:1.5">Track daily in MyFitnessPal. Both targets are tracked on your dashboard as daily habits.</div>
+  </div>
   <div id="nutrition-rules"></div>
   <div class="alert"><strong>URIC ACID NOTE:</strong> Your level is 471.9 (optimal under 430). Reduce high-purine foods: organ meats, red meat (max 2x/week), shellfish, beer and spirits. Increase water to 2.5L+ daily.</div>
 </div>
@@ -232,6 +238,9 @@ const HABITS=[
   {id:"cooking",label:"NUTRITION — HOME COOKED",target:5,cat:"NUTRITION",detail:"Target: 5 out of 7 days"},
   {id:"veg",label:"NUTRITION — 5+ VEG PORTIONS",target:4,cat:"NUTRITION",detail:"Target: 4 out of 7 days"},
   {id:"supps",label:"SUPPLEMENTS — TAKEN",target:6,cat:"SUPPS",detail:"Target: 6 out of 7 days"},
+  {id:"alc_free",label:"RECOVERY — ALCOHOL FREE DAY",target:7,cat:"RECOVERY",detail:"Target: 7 out of 7 days. Tick each day you don't drink."},
+  {id:"cals",label:"NUTRITION — UNDER 2500 CALS",target:5,cat:"NUTRITION",detail:"Target: 2500 kcal daily limit. Track in MyFitnessPal. 5 out of 7 days."},
+  {id:"protein",label:"NUTRITION — 180g+ PROTEIN",target:5,cat:"NUTRITION",detail:"Target: minimum 180g protein daily. Track in MyFitnessPal. 5 out of 7 days."},
 ];
 
 // Weekly exercise targets (not daily — just tick when done)
@@ -382,16 +391,6 @@ function renderWeeklyExercise(){
   h+=`</div></div>`;
   el.innerHTML=h;
 }
-function renderAlcohol(){
-  const el=document.getElementById("weekly-alcohol");
-  const on=alcData[dashWeek];
-  const cc=CATCFG.RECOVERY;
-  el.innerHTML=`<div class="prog-card"><div style="display:flex;align-items:center;gap:12px">
-    <button class="ex-check ${on?"on":""}" style="${on?`border-color:${cc.color};background:${cc.bg};color:${cc.color}`:""}" id="alc-btn">${on?"✓":""}</button>
-    <div><div class="prog-label" style="margin-bottom:2px"><span class="prog-cat-dot" style="background:${cc.color}"></span>RECOVERY — ALCOHOL FREE WEEK?</div>
-    <div style="font-size:11px;color:var(--t4)">Tap to confirm no alcohol this week. Leave unticked if any was consumed.</div></div>
-  </div></div>`;
-}
 function renderOverview(){
   const el=document.getElementById("overview-grid");let h="";
   for(let w=0;w<WEEKS;w++){
@@ -400,13 +399,12 @@ function renderOverview(){
   }
   el.innerHTML=h;
 }
-function renderDash(){renderDashWeekSel();renderBanner();renderDailyHabits();renderWeeklyExercise();renderAlcohol();renderOverview();}
+function renderDash(){renderDashWeekSel();renderBanner();renderDailyHabits();renderWeeklyExercise();renderOverview();}
 
 // Dashboard events
 document.getElementById("dash-wk-sel").addEventListener("click",e=>{const b=e.target.closest(".wk-btn");if(!b)return;dashWeek=+b.dataset.dw;renderDash();});
 document.getElementById("daily-habits").addEventListener("click",e=>{const b=e.target.closest(".prog-day-btn");if(!b)return;const k=dashWeek+"-"+b.dataset.hab+"-"+b.dataset.day;dailyData[k]=!dailyData[k];sv(DK,dailyData);renderDash();});
 document.getElementById("weekly-exercise").addEventListener("click",e=>{const b=e.target.closest(".ex-check");if(!b)return;const k=dashWeek+"-"+b.dataset.eid;exData[k]=!exData[k];sv(EK,exData);renderDash();});
-document.getElementById("weekly-alcohol").addEventListener("click",e=>{const b=e.target.closest(".ex-check")||e.target.closest("#alc-btn");if(!b)return;alcData[dashWeek]=!alcData[dashWeek];sv(AK,alcData);renderDash();});
 renderDash();
 
 // ─── BLOODS ────────────────────────────────────
