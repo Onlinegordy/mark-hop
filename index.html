@@ -316,23 +316,53 @@ function renderBanner(){
   const pct=weekPct(dashWeek);
   const pctRound=Math.round(pct*100);
   const col=getColor(pct);
-  // Count dangers
-  let dangers=[];
-  const today=new Date().getDay();// 0=Sun
-  const dayIdx=today===0?6:today-1;// convert to 0=Mon
-  HABITS.forEach(h=>{
-    const cnt=habitCount(dashWeek,h.id);
-    const d=getDanger(cnt,h.target,dayIdx);
-    if(d.status==="BEHIND") dangers.push(h.label.split(" — ")[0]+": "+d.msg);
-  });
-  let exDone=EXERCISES.filter(e=>exData[dashWeek+"-"+e.id]).length;
-  if(exDone<5&&(5-exDone)>(7-dayIdx)) dangers.push("EXERCISE: "+(5-exDone)+" sessions still needed");
+  const today=new Date().getDay();
+  const dayIdx=today===0?6:today-1;
 
-  let dangerHtml="";
-  if(dangers.length>0){
-    dangerHtml=`<div class="week-danger" style="color:#ef4444">⚠ ${dangers.join(" · ")}</div>`;
-  } else if(pct>=1){
-    dangerHtml=`<div class="week-danger" style="color:#22c55e">All targets hit this week.</div>`;
+  // Check if anything has been ticked at all this week
+  let totalTicks=0;
+  HABITS.forEach(h=>{totalTicks+=habitCount(dashWeek,h.id);});
+  EXERCISES.forEach(e=>{if(exData[dashWeek+"-"+e.id])totalTicks++;});
+
+  // Build status message
+  let statusHtml="";
+  if(pct>=1){
+    statusHtml=`<div style="margin-top:8px;padding:10px 14px;border-radius:8px;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2)">
+      <div style="font-family:var(--ff-sub);font-size:13px;font-weight:600;color:#22c55e;text-transform:uppercase;letter-spacing:0.04em">ALL TARGETS HIT THIS WEEK</div>
+    </div>`;
+  } else if(totalTicks===0){
+    statusHtml=`<div style="margin-top:8px;padding:10px 14px;border-radius:8px;background:rgba(255,255,255,0.03);border:1px solid var(--border)">
+      <div style="font-family:var(--ff-sub);font-size:13px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:0.04em">WEEK ${dashWeek+1} — START TICKING OFF YOUR DAILY HABITS BELOW</div>
+    </div>`;
+  } else {
+    // Only show behind items mid-week
+    let behind=[];
+    HABITS.forEach(h=>{
+      const cnt=habitCount(dashWeek,h.id);
+      const d=getDanger(cnt,h.target,dayIdx);
+      if(d.status==="BEHIND"){
+        const name=h.label.split(" — ")[1]||h.label.split(" — ")[0];
+        behind.push({name:name,needed:h.target-cnt,left:6-dayIdx});
+      }
+    });
+    let exDone=EXERCISES.filter(e=>exData[dashWeek+"-"+e.id]).length;
+    if(exDone<5&&(5-exDone)>(6-dayIdx)) behind.push({name:"EXERCISE SESSIONS",needed:5-exDone,left:6-dayIdx});
+
+    if(behind.length>0){
+      let rows=behind.map(b=>`<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(239,68,68,0.08)">
+        <div style="width:6px;height:6px;border-radius:50%;background:#ef4444;flex-shrink:0"></div>
+        <span style="font-family:var(--ff-sub);font-size:12px;color:#fca5a5;flex:1">${b.name}</span>
+        <span style="font-family:var(--ff-sub);font-size:11px;color:#ef4444;white-space:nowrap">${b.needed} to go · ${b.left} days left</span>
+      </div>`).join("");
+      statusHtml=`<div style="margin-top:8px;padding:12px 14px;border-radius:8px;background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.12)">
+        <div style="font-family:var(--ff-sub);font-size:11px;font-weight:700;color:#ef4444;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px">NEEDS ATTENTION</div>
+        ${rows}
+      </div>`;
+    } else {
+      statusHtml=`<div style="margin-top:8px;padding:10px 14px;border-radius:8px;background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.12)">
+        <div style="font-family:var(--ff-sub);font-size:13px;font-weight:600;color:#22c55e;text-transform:uppercase;letter-spacing:0.04em">ON TRACK — KEEP GOING</div>
+      </div>`;
+    }
   }
 
   el.innerHTML=`
@@ -344,10 +374,10 @@ function renderBanner(){
       </div>
       <div class="week-score-info">
         <div class="week-score-title">WEEK ${dashWeek+1} COMPLETION</div>
-        <div class="week-score-sub">Daily habits + exercise targets combined. Hit your numbers and this fills up.</div>
-        ${dangerHtml}
+        <div class="week-score-sub">Daily habits + exercise targets combined.</div>
       </div>
-    </div>`;
+    </div>
+    ${statusHtml}`;
 }
 function renderDailyHabits(){
   const el=document.getElementById("daily-habits");let h="";
