@@ -7,176 +7,151 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;500;600;700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #0A0A0A;
-  --surface: #1A1A1A;
-  --border: #222;
-  --accent: #E040D0;
-  --accent-lo: rgba(224,64,208,0.08);
-  --accent-md: rgba(224,64,208,0.15);
-  --accent-glow: rgba(224,64,208,0.5);
-  --white: #FFFFFF;
-  --t1: #ccc;
-  --t2: #999;
-  --t3: #777;
-  --t4: #555;
-  --t5: #444;
-  --t6: #333;
-  --amber: #FFB020;
-  --green: #44CC66;
-  --ff-head: 'Bebas Neue', sans-serif;
-  --ff-sub: 'Barlow Condensed', sans-serif;
-  --ff-body: 'Barlow', sans-serif;
+  --bg: #0A0A0A; --surface: #1A1A1A; --border: #222; --accent: #E040D0;
+  --accent-lo: rgba(224,64,208,0.08); --accent-md: rgba(224,64,208,0.15);
+  --white: #FFF; --t1: #ccc; --t2: #999; --t3: #777; --t4: #555; --t5: #444; --t6: #333;
+  --amber: #FFB020; --green: #44CC66;
+  --c-sleep: #6366f1; --c-sleep-bg: rgba(99,102,241,0.10); --c-sleep-bdr: rgba(99,102,241,0.25);
+  --c-hydra: #06b6d4; --c-hydra-bg: rgba(6,182,212,0.10); --c-hydra-bdr: rgba(6,182,212,0.25);
+  --c-move: #22c55e; --c-move-bg: rgba(34,197,94,0.10); --c-move-bdr: rgba(34,197,94,0.25);
+  --c-nutr: #f97316; --c-nutr-bg: rgba(249,115,22,0.10); --c-nutr-bdr: rgba(249,115,22,0.25);
+  --c-supp: #a855f7; --c-supp-bg: rgba(168,85,247,0.10); --c-supp-bdr: rgba(168,85,247,0.25);
+  --c-exer: #E040D0; --c-exer-bg: rgba(224,64,208,0.10); --c-exer-bdr: rgba(224,64,208,0.25);
+  --c-recov: #ec4899; --c-recov-bg: rgba(236,72,153,0.10); --c-recov-bdr: rgba(236,72,153,0.25);
+  --ff-head: 'Bebas Neue', sans-serif; --ff-sub: 'Barlow Condensed', sans-serif; --ff-body: 'Barlow', sans-serif;
 }
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body { background: var(--bg); color: var(--white); font-family: var(--ff-body); min-height: 100vh; -webkit-font-smoothing: antialiased; }
-a { color: var(--accent); text-decoration: none; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--white);font-family:var(--ff-body);min-height:100vh;-webkit-font-smoothing:antialiased}
 
-/* Header */
-.header { padding: 28px 20px 20px; border-bottom: 1px solid var(--surface); }
-.header-inner { max-width: 900px; margin: 0 auto; }
-.status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px var(--accent-glow); display: inline-block; vertical-align: middle; margin-right: 8px; }
-.status-label { font-family: var(--ff-sub); font-size: 11px; font-weight: 600; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; }
-.main-title { font-family: var(--ff-head); font-size: 42px; font-weight: 400; letter-spacing: 0.06em; margin: 4px 0 2px; line-height: 1.1; }
-.subtitle { font-family: var(--ff-sub); font-size: 14px; color: var(--t4); letter-spacing: 0.04em; text-transform: uppercase; }
-.brand-line { margin-top: 12px; padding-top: 8px; border-top: 1px solid var(--surface); font-family: var(--ff-sub); font-size: 10px; color: var(--t5); letter-spacing: 0.06em; text-transform: uppercase; }
+.header{padding:28px 20px 20px;border-bottom:1px solid var(--surface)}
+.header-inner{max-width:900px;margin:0 auto}
+.status-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px rgba(224,64,208,0.5);display:inline-block;vertical-align:middle;margin-right:8px}
+.status-label{font-family:var(--ff-sub);font-size:11px;font-weight:600;color:var(--accent);letter-spacing:0.1em;text-transform:uppercase}
+.main-title{font-family:var(--ff-head);font-size:42px;font-weight:400;letter-spacing:0.06em;margin:4px 0 2px;line-height:1.1}
+.subtitle{font-family:var(--ff-sub);font-size:14px;color:var(--t4);letter-spacing:0.04em;text-transform:uppercase}
+.brand-line{margin-top:12px;padding-top:8px;border-top:1px solid var(--surface);font-family:var(--ff-sub);font-size:10px;color:var(--t5);letter-spacing:0.06em;text-transform:uppercase}
 
-/* Nav */
-.nav { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.97); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--surface); }
-.nav-inner { display: flex; overflow-x: auto; max-width: 900px; margin: 0 auto; scrollbar-width: none; -ms-overflow-style: none; }
-.nav-inner::-webkit-scrollbar { display: none; }
-.nav-btn { flex: 0 0 auto; padding: 14px 14px 12px; background: none; border: none; border-bottom: 2px solid transparent; color: var(--t4); font-family: var(--ff-sub); font-size: 13px; font-weight: 400; cursor: pointer; white-space: nowrap; transition: all 0.2s; letter-spacing: 0.06em; text-transform: uppercase; }
-.nav-btn.active { color: var(--white); border-bottom-color: var(--accent); font-weight: 600; }
+.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,10,0.97);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--surface)}
+.nav-inner{display:flex;overflow-x:auto;max-width:900px;margin:0 auto;scrollbar-width:none;-ms-overflow-style:none}
+.nav-inner::-webkit-scrollbar{display:none}
+.nav-btn{flex:0 0 auto;padding:14px 12px 12px;background:none;border:none;border-bottom:2px solid transparent;color:var(--t4);font-family:var(--ff-sub);font-size:12px;font-weight:400;cursor:pointer;white-space:nowrap;transition:all 0.2s;letter-spacing:0.06em;text-transform:uppercase}
+.nav-btn.active{color:var(--white);border-bottom-color:var(--accent);font-weight:600}
 
-/* Main */
-.main { max-width: 900px; margin: 0 auto; padding: 24px 16px 60px; }
-.section { display: none; }
-.section.active { display: block; }
+.main{max-width:900px;margin:0 auto;padding:24px 16px 60px}
+.section{display:none}.section.active{display:block}
+.h2{font-family:var(--ff-head);font-size:28px;font-weight:400;letter-spacing:0.04em;margin-bottom:8px}
+.p-intro{font-size:14px;line-height:1.6;color:var(--t3);margin-bottom:20px}
 
-/* Typography */
-.h2 { font-family: var(--ff-head); font-size: 28px; font-weight: 400; letter-spacing: 0.04em; margin-bottom: 8px; }
-.p-intro { font-size: 14px; line-height: 1.6; color: var(--t3); margin-bottom: 20px; }
-.h3 { font-family: var(--ff-sub); font-size: 16px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 10px; }
+.scores{display:flex;gap:6px;overflow-x:auto;margin-bottom:24px;padding-bottom:4px}
+.scores::-webkit-scrollbar{display:none}
+.score-card{flex:0 0 auto;text-align:center;border-radius:8px;padding:8px 10px;min-width:52px;border:1px solid var(--border);background:var(--surface)}
+.score-card.good{background:var(--accent-lo);border-color:rgba(224,64,208,0.3)}
+.score-card.ok{background:rgba(255,176,32,0.08);border-color:rgba(255,176,32,0.2)}
+.score-wk{font-family:var(--ff-sub);font-size:10px;color:var(--t4);letter-spacing:0.05em;margin-bottom:2px}
+.score-num{font-family:var(--ff-head);font-size:22px;color:var(--t5)}
+.score-card.good .score-num{color:var(--accent)}
+.score-card.ok .score-num{color:var(--amber)}
+.score-of{font-size:9px;color:var(--t4)}
 
-/* Score row */
-.scores { display: flex; gap: 6px; overflow-x: auto; margin-bottom: 24px; padding-bottom: 4px; }
-.scores::-webkit-scrollbar { display: none; }
-.score-card { flex: 0 0 auto; text-align: center; border-radius: 8px; padding: 8px 10px; min-width: 52px; border: 1px solid var(--border); background: var(--surface); }
-.score-card.good { background: var(--accent-lo); border-color: rgba(224,64,208,0.3); }
-.score-card.ok { background: rgba(255,176,32,0.08); border-color: rgba(255,176,32,0.2); }
-.score-wk { font-family: var(--ff-sub); font-size: 10px; color: var(--t4); letter-spacing: 0.05em; margin-bottom: 2px; }
-.score-num { font-family: var(--ff-head); font-size: 22px; color: var(--t5); }
-.score-card.good .score-num { color: var(--accent); }
-.score-card.ok .score-num { color: var(--amber); }
-.score-of { font-size: 9px; color: var(--t4); }
+.kpi-grid{overflow-x:auto}
+.kpi-grid-inner{min-width:700px}
+.kpi-header{display:flex;margin-bottom:4px}
+.kpi-header-label{flex:0 0 240px;padding:8px 10px;font-family:var(--ff-sub);font-size:10px;font-weight:600;color:var(--t4);text-transform:uppercase;letter-spacing:0.08em}
+.kpi-header-wk{flex:0 0 38px;text-align:center;padding:8px 2px;font-family:var(--ff-sub);font-size:10px;font-weight:600;color:var(--t4)}
+.kpi-row{display:flex;align-items:center;margin-bottom:1px;border-bottom:1px solid #151515}
+.kpi-name{flex:0 0 240px;padding:10px;font-size:12px;color:var(--t1);line-height:1.3}
+.kpi-cat{display:inline-block;font-family:var(--ff-sub);font-size:8px;font-weight:700;padding:2px 6px;border-radius:3px;margin-right:6px;letter-spacing:0.06em;text-transform:uppercase}
+.kpi-cell{flex:0 0 38px;text-align:center;padding:6px 2px}
+.kpi-check{width:28px;height:28px;border-radius:5px;border:2px solid var(--border);background:transparent;color:transparent;font-size:16px;font-weight:700;cursor:pointer;transition:all 0.15s;display:inline-flex;align-items:center;justify-content:center}
 
-/* KPI Grid */
-.kpi-grid { overflow-x: auto; }
-.kpi-grid-inner { min-width: 700px; }
-.kpi-header { display: flex; margin-bottom: 4px; }
-.kpi-header-label { flex: 0 0 220px; padding: 8px 10px; font-family: var(--ff-sub); font-size: 10px; font-weight: 600; color: var(--t4); text-transform: uppercase; letter-spacing: 0.08em; }
-.kpi-header-wk { flex: 0 0 40px; text-align: center; padding: 8px 2px; font-family: var(--ff-sub); font-size: 10px; font-weight: 600; color: var(--t4); }
-.kpi-row { display: flex; align-items: center; margin-bottom: 1px; border-bottom: 1px solid #151515; }
-.kpi-name { flex: 0 0 220px; padding: 10px; font-size: 12px; color: var(--t1); line-height: 1.3; }
-.kpi-cat { display: inline-block; font-family: var(--ff-sub); font-size: 8px; font-weight: 700; padding: 2px 6px; border-radius: 3px; margin-right: 6px; letter-spacing: 0.06em; text-transform: uppercase; background: var(--accent-lo); color: var(--accent); }
-.kpi-cell { flex: 0 0 40px; text-align: center; padding: 6px 2px; }
-.kpi-check { width: 28px; height: 28px; border-radius: 5px; border: 2px solid var(--border); background: transparent; color: transparent; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.15s; display: inline-flex; align-items: center; justify-content: center; }
-.kpi-check.on { border-color: var(--accent); background: var(--accent-md); color: var(--accent); }
+.card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px 18px;margin-bottom:6px}
+.card-row{display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+.card-marker{font-size:14px;font-weight:600}
+.card-result{font-family:var(--ff-head);font-size:20px;letter-spacing:0.02em}
+.card-opt{font-family:var(--ff-sub);font-size:10px;color:var(--t4);margin-left:12px}
+.card-detail{margin-top:12px;padding:12px 14px;border-radius:6px;background:var(--bg);font-size:13px;line-height:1.6;color:var(--t2);display:none}
+.card-detail.open{display:block}
+.color-accent{color:var(--accent)}.color-amber{color:var(--amber)}
+.card-left-accent{border-left:3px solid var(--accent)}.card-left-amber{border-left:3px solid var(--amber)}
 
-/* Cards */
-.card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px 18px; margin-bottom: 6px; }
-.card-row { display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
-.card-marker { font-size: 14px; font-weight: 600; }
-.card-result { font-family: var(--ff-head); font-size: 20px; letter-spacing: 0.02em; }
-.card-opt { font-family: var(--ff-sub); font-size: 10px; color: var(--t4); margin-left: 12px; }
-.card-detail { margin-top: 12px; padding: 12px 14px; border-radius: 6px; background: var(--bg); font-size: 13px; line-height: 1.6; color: var(--t2); display: none; }
-.card-detail.open { display: block; }
-.card-left-accent { border-left: 3px solid var(--accent); }
-.card-left-amber { border-left: 3px solid var(--amber); }
-.color-accent { color: var(--accent); }
-.color-amber { color: var(--amber); }
+.alert{margin-top:16px;padding:14px 16px;border-radius:8px;font-size:12px;line-height:1.6;color:var(--t2);background:rgba(224,64,208,0.06);border:1px solid rgba(224,64,208,0.15)}
+.alert strong{color:var(--accent)}
 
-/* Alert box */
-.alert { margin-top: 16px; padding: 14px 16px; border-radius: 8px; font-size: 12px; line-height: 1.6; color: var(--t2); background: rgba(224,64,208,0.06); border: 1px solid rgba(224,64,208,0.15); }
-.alert strong { color: var(--accent); }
+.rule-num{font-family:var(--ff-head);font-size:32px;color:rgba(224,64,208,0.2);line-height:1}
+.rule-title{font-family:var(--ff-sub);font-size:16px;font-weight:600;text-transform:uppercase;letter-spacing:0.03em}
+.rule-detail{font-size:13px;line-height:1.65;color:var(--t2);margin-top:8px}
 
-/* Nutrition rules */
-.rule-num { font-family: var(--ff-head); font-size: 32px; color: rgba(224,64,208,0.2); line-height: 1; }
-.rule-title { font-family: var(--ff-sub); font-size: 16px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; }
-.rule-detail { font-size: 13px; line-height: 1.65; color: var(--t2); margin-top: 8px; }
+.supp-dose{background:rgba(224,64,208,0.1);border:1px solid rgba(224,64,208,0.2);border-radius:6px;padding:6px 12px;font-family:var(--ff-head);font-size:14px;color:var(--accent);letter-spacing:0.04em;white-space:nowrap}
+.supp-name{font-family:var(--ff-sub);font-size:15px;font-weight:600;text-transform:uppercase;letter-spacing:0.03em;margin-bottom:4px}
+.supp-when{font-size:11px;color:var(--t4)}.supp-why{font-size:12px;line-height:1.55;color:#888;margin-top:10px}
 
-/* Supplement badge */
-.supp-dose { background: rgba(224,64,208,0.1); border: 1px solid rgba(224,64,208,0.2); border-radius: 6px; padding: 6px 12px; font-family: var(--ff-head); font-size: 14px; color: var(--accent); letter-spacing: 0.04em; white-space: nowrap; }
-.supp-name { font-family: var(--ff-sub); font-size: 15px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 4px; }
-.supp-when { font-size: 11px; color: var(--t4); }
-.supp-why { font-size: 12px; line-height: 1.55; color: #888; margin-top: 10px; }
+.move-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px}
+.move-option{font-family:var(--ff-sub);font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:0.03em}
+.move-time{font-family:var(--ff-head);font-size:12px;color:var(--accent);background:rgba(224,64,208,0.1);border-radius:4px;padding:3px 8px;letter-spacing:0.04em}
+.move-best{font-family:var(--ff-sub);font-size:11px;color:var(--t4);text-transform:uppercase;letter-spacing:0.04em;margin:6px 0}
+.move-targets{font-size:12px;color:#888;line-height:1.5}
 
-/* Movement grid */
-.move-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 8px; }
-.move-option { font-family: var(--ff-sub); font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; }
-.move-time { font-family: var(--ff-head); font-size: 12px; color: var(--accent); background: rgba(224,64,208,0.1); border-radius: 4px; padding: 3px 8px; letter-spacing: 0.04em; }
-.move-best { font-family: var(--ff-sub); font-size: 11px; color: var(--t4); text-transform: uppercase; letter-spacing: 0.04em; margin: 6px 0; }
-.move-targets { font-size: 12px; color: #888; line-height: 1.5; }
+.sleep-num{width:36px;height:36px;border-radius:6px;flex-shrink:0;background:var(--accent-lo);border:1px solid rgba(224,64,208,0.15);display:flex;align-items:center;justify-content:center;font-family:var(--ff-head);font-size:20px;color:var(--accent)}
+.sleep-rule{font-family:var(--ff-sub);font-size:15px;font-weight:600;text-transform:uppercase;letter-spacing:0.03em;margin-bottom:4px}
+.sleep-detail{font-size:12px;color:#888;line-height:1.5}
 
-/* Sleep */
-.sleep-num { width: 36px; height: 36px; border-radius: 6px; flex-shrink: 0; background: var(--accent-lo); border: 1px solid rgba(224,64,208,0.15); display: flex; align-items: center; justify-content: center; font-family: var(--ff-head); font-size: 20px; color: var(--accent); }
-.sleep-rule { font-family: var(--ff-sub); font-size: 15px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 4px; }
-.sleep-detail { font-size: 12px; color: #888; line-height: 1.5; }
+.week-btns{display:flex;gap:5px;overflow-x:auto;margin-bottom:20px;padding-bottom:4px}
+.week-btns::-webkit-scrollbar{display:none}
+.week-btn{flex:0 0 auto;padding:8px 12px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--t4);font-family:var(--ff-sub);font-size:12px;font-weight:600;cursor:pointer;letter-spacing:0.04em}
+.week-btn.active{border:2px solid var(--accent);background:rgba(224,64,208,0.1);color:var(--white)}
+.week-btn.has-data{background:rgba(224,64,208,0.04);color:var(--accent)}
+.form-label{display:block;font-family:var(--ff-sub);font-size:11px;font-weight:600;color:var(--t4);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px}
+.form-input,.form-textarea{width:100%;padding:12px 14px;border-radius:8px;background:var(--surface);border:1px solid var(--border);color:var(--white);font-size:14px;font-family:var(--ff-body);outline:none;transition:border-color 0.2s}
+.form-input:focus,.form-textarea:focus{border-color:rgba(224,64,208,0.4)}
+.form-textarea{resize:vertical}.form-group{margin-bottom:12px}
 
-/* Review */
-.week-btns { display: flex; gap: 5px; overflow-x: auto; margin-bottom: 20px; padding-bottom: 4px; }
-.week-btns::-webkit-scrollbar { display: none; }
-.week-btn { flex: 0 0 auto; padding: 8px 12px; border-radius: 6px; border: 1px solid var(--border); background: transparent; color: var(--t4); font-family: var(--ff-sub); font-size: 12px; font-weight: 600; cursor: pointer; letter-spacing: 0.04em; }
-.week-btn.active { border: 2px solid var(--accent); background: rgba(224,64,208,0.1); color: var(--white); }
-.week-btn.has-data { background: rgba(224,64,208,0.04); color: var(--accent); }
-.form-label { display: block; font-family: var(--ff-sub); font-size: 11px; font-weight: 600; color: var(--t4); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
-.form-input, .form-textarea { width: 100%; padding: 12px 14px; border-radius: 8px; background: var(--surface); border: 1px solid var(--border); color: var(--white); font-size: 14px; font-family: var(--ff-body); outline: none; transition: border-color 0.2s; }
-.form-input:focus, .form-textarea:focus { border-color: rgba(224,64,208,0.4); }
-.form-textarea { resize: vertical; }
-.form-group { margin-bottom: 12px; }
+/* Gym session styles */
+.gym-session{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:16px}
+.gym-session-title{font-family:var(--ff-head);font-size:24px;letter-spacing:0.04em;margin-bottom:4px}
+.gym-session-sub{font-family:var(--ff-sub);font-size:12px;color:var(--t4);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:16px}
+.gym-exercise{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #1f1f1f}
+.gym-exercise:last-child{border-bottom:none}
+.gym-check{width:32px;height:32px;border-radius:6px;border:2px solid var(--border);background:transparent;color:transparent;font-size:18px;font-weight:700;cursor:pointer;transition:all 0.15s;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.gym-check.on{border-color:var(--c-exer);background:var(--c-exer-bg);color:var(--c-exer)}
+.gym-exname{font-family:var(--ff-sub);font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:0.02em}
+.gym-exdetail{font-size:12px;color:#888;line-height:1.4;margin-top:2px}
+.gym-sets{font-family:var(--ff-head);font-size:13px;color:var(--accent);letter-spacing:0.04em;margin-left:auto;white-space:nowrap}
+.gym-week-sel{display:flex;gap:5px;overflow-x:auto;margin-bottom:20px;padding-bottom:4px}
+.gym-week-sel::-webkit-scrollbar{display:none}
 
-/* Footer */
-.footer { text-align: center; padding: 16px 20px 28px; font-family: var(--ff-sub); font-size: 10px; color: var(--t6); letter-spacing: 0.06em; text-transform: uppercase; border-top: 1px solid var(--surface); line-height: 2; }
-.footer-sub { color: var(--t5); text-transform: none; letter-spacing: 0.02em; font-family: var(--ff-body); }
+.footer{text-align:center;padding:16px 20px 28px;font-family:var(--ff-sub);font-size:10px;color:var(--t6);letter-spacing:0.06em;text-transform:uppercase;border-top:1px solid var(--surface);line-height:2}
+.footer-sub{color:var(--t5);text-transform:none;letter-spacing:0.02em;font-family:var(--ff-body)}
 
-@media (max-width: 600px) {
-  .main-title { font-size: 32px; }
-  .h2 { font-size: 24px; }
-  .kpi-name { flex: 0 0 180px; font-size: 11px; }
-  .kpi-header-label { flex: 0 0 180px; }
-  .kpi-grid-inner { min-width: 600px; }
+@media(max-width:600px){
+  .main-title{font-size:32px}.h2{font-size:24px}
+  .kpi-name{flex:0 0 190px;font-size:11px}.kpi-header-label{flex:0 0 190px}
+  .kpi-grid-inner{min-width:650px}
 }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<div class="header">
-  <div class="header-inner">
-    <div><span class="status-dot"></span><span class="status-label">Active — Q2 2026</span></div>
-    <h1 class="main-title">HEALTH OPERATING PLAN</h1>
-    <p class="subtitle">Mark McGillion — 12-Week Programme</p>
-    <div class="brand-line">ONLINE GORDY — SHIFT PROGRAMME | DM "SHIFT"</div>
-  </div>
-</div>
+<div class="header"><div class="header-inner">
+  <div><span class="status-dot"></span><span class="status-label">Active — Q2 2026</span></div>
+  <h1 class="main-title">HEALTH OPERATING PLAN</h1>
+  <p class="subtitle">Mark McGillion — 12-Week Programme</p>
+  <div class="brand-line">ONLINE GORDY — SHIFT PROGRAMME | DM "SHIFT"</div>
+</div></div>
 
-<!-- NAV -->
-<nav class="nav">
-  <div class="nav-inner" id="nav">
-    <button class="nav-btn active" data-tab="dashboard">DASHBOARD</button>
-    <button class="nav-btn" data-tab="bloods">BLOODS</button>
-    <button class="nav-btn" data-tab="nutrition">NUTRITION</button>
-    <button class="nav-btn" data-tab="supps">SUPPS</button>
-    <button class="nav-btn" data-tab="movement">MOVEMENT</button>
-    <button class="nav-btn" data-tab="sleep">SLEEP</button>
-    <button class="nav-btn" data-tab="review">REVIEW</button>
-  </div>
-</nav>
+<nav class="nav"><div class="nav-inner" id="nav">
+  <button class="nav-btn active" data-tab="dashboard">DASHBOARD</button>
+  <button class="nav-btn" data-tab="bloods">BLOODS</button>
+  <button class="nav-btn" data-tab="nutrition">NUTRITION</button>
+  <button class="nav-btn" data-tab="supps">SUPPS</button>
+  <button class="nav-btn" data-tab="movement">MOVEMENT</button>
+  <button class="nav-btn" data-tab="gym">GYM</button>
+  <button class="nav-btn" data-tab="sleep">SLEEP</button>
+  <button class="nav-btn" data-tab="review">REVIEW</button>
+</div></nav>
 
-<!-- MAIN -->
 <div class="main">
 
-<!-- ═══ DASHBOARD ═══ -->
 <div class="section active" id="sec-dashboard">
   <h2 class="h2">WEEKLY KPI DASHBOARD</h2>
   <p class="p-intro">Tap each cell to mark complete. Progress saves automatically.</p>
@@ -184,7 +159,6 @@ a { color: var(--accent); text-decoration: none; }
   <div class="kpi-grid"><div class="kpi-grid-inner" id="kpi-grid"></div></div>
 </div>
 
-<!-- ═══ BLOODS ═══ -->
 <div class="section" id="sec-bloods">
   <h2 class="h2">BLOOD PANEL — KEY FLAGS</h2>
   <p class="p-intro">Randox Discovery panel, 8 April 2026. Tap any row for detail.</p>
@@ -192,7 +166,6 @@ a { color: var(--accent); text-decoration: none; }
   <div class="alert"><strong>GP ACTION REQUIRED:</strong> Discuss the cholesterol profile, metabolic syndrome flags, elevated CRP/ASO, and the lipoprotein(a) result (279 nmol/l — genetically determined, significantly elevated) with your doctor.</div>
 </div>
 
-<!-- ═══ NUTRITION ═══ -->
 <div class="section" id="sec-nutrition">
   <h2 class="h2">NUTRITION OPERATING FRAMEWORK</h2>
   <p class="p-intro">Not a meal plan. Operating principles — inputs that improve outputs.</p>
@@ -200,28 +173,31 @@ a { color: var(--accent); text-decoration: none; }
   <div class="alert"><strong>URIC ACID NOTE:</strong> Your level is 471.9 (optimal under 430). Reduce high-purine foods: organ meats, red meat (max 2x/week), shellfish, beer and spirits. Increase water to 2.5L+ daily.</div>
 </div>
 
-<!-- ═══ SUPPS ═══ -->
 <div class="section" id="sec-supps">
   <h2 class="h2">SUPPLEMENT STACK</h2>
   <p class="p-intro">Targeted to your blood results. Check with your GP before starting.</p>
   <div id="supp-cards"></div>
 </div>
 
-<!-- ═══ MOVEMENT ═══ -->
 <div class="section" id="sec-movement">
   <h2 class="h2">DAILY MOVEMENT MENU</h2>
   <p class="p-intro">Padel x2 stays as your anchor. Pick one below on the other days. Target: 6 active days per week.</p>
   <div class="move-grid" id="move-cards"></div>
 </div>
 
-<!-- ═══ SLEEP ═══ -->
+<div class="section" id="sec-gym">
+  <h2 class="h2">GYM SESSIONS</h2>
+  <p class="p-intro">Two basic sessions per week. Alternate between A and B. Tick off each exercise as you go. No ego — just get through them.</p>
+  <div class="gym-week-sel" id="gym-week-btns"></div>
+  <div id="gym-sessions"></div>
+</div>
+
 <div class="section" id="sec-sleep">
   <h2 class="h2">SLEEP OPERATING PROTOCOL</h2>
   <p class="p-intro">Sleep is the single highest-leverage input. Poor sleep worsens every flagged marker — raises cortisol, increases inflammation, reduces testosterone, increases appetite, impairs insulin sensitivity.</p>
   <div id="sleep-cards"></div>
 </div>
 
-<!-- ═══ REVIEW ═══ -->
 <div class="section" id="sec-review">
   <h2 class="h2">WEEKLY REVIEW</h2>
   <p class="p-intro">Complete every Friday evening. Same discipline as a weekly ops review.</p>
@@ -229,29 +205,35 @@ a { color: var(--accent); text-decoration: none; }
   <div id="review-form"></div>
 </div>
 
-</div><!-- /main -->
-
-<div class="footer">
-  ONLINE GORDY — SHIFT PROGRAMME | DM "SHIFT"<br>
-  <span class="footer-sub">Not a substitute for medical advice. Discuss all results with your GP.</span>
 </div>
 
+<div class="footer">ONLINE GORDY — SHIFT PROGRAMME | DM "SHIFT"<br><span class="footer-sub">Not a substitute for medical advice. Discuss all results with your GP.</span></div>
+
 <script>
-// ─── DATA ──────────────────────────────────────────
-const WEEKS = 12;
-const KPIS = [
+const WEEKS=12;
+const CAT={
+  SLEEP:{color:"var(--c-sleep)",bg:"var(--c-sleep-bg)",bdr:"var(--c-sleep-bdr)"},
+  HYDRATION:{color:"var(--c-hydra)",bg:"var(--c-hydra-bg)",bdr:"var(--c-hydra-bdr)"},
+  MOVEMENT:{color:"var(--c-move)",bg:"var(--c-move-bg)",bdr:"var(--c-move-bdr)"},
+  NUTRITION:{color:"var(--c-nutr)",bg:"var(--c-nutr-bg)",bdr:"var(--c-nutr-bdr)"},
+  SUPPS:{color:"var(--c-supp)",bg:"var(--c-supp-bg)",bdr:"var(--c-supp-bdr)"},
+  EXERCISE:{color:"var(--c-exer)",bg:"var(--c-exer-bg)",bdr:"var(--c-exer-bdr)"},
+  RECOVERY:{color:"var(--c-recov)",bg:"var(--c-recov-bg)",bdr:"var(--c-recov-bdr)"},
+};
+const KPIS=[
   {id:"sleep_bed",label:"In bed by 11pm (5+ nights)",cat:"SLEEP"},
   {id:"sleep_hours",label:"7+ hours sleep (5+ nights)",cat:"SLEEP"},
   {id:"hydration",label:"2.5L water daily (5+ days)",cat:"HYDRATION"},
   {id:"walk",label:"20+ min walk (5+ days)",cat:"MOVEMENT"},
-  {id:"padel",label:"Padel sessions completed (2x)",cat:"MOVEMENT"},
   {id:"cooking",label:"Home-cooked meals (5+ days)",cat:"NUTRITION"},
   {id:"veg",label:"5+ veg portions daily (4+ days)",cat:"NUTRITION"},
   {id:"supps",label:"Supplements taken daily (6+ days)",cat:"SUPPS"},
-  {id:"alcohol",label:"Alcohol: max 2 nights this week",cat:"RECOVERY"},
-  {id:"review",label:"Weekly review completed",cat:"SYSTEM"},
+  {id:"padel",label:"Padel completed (2 sessions)",cat:"EXERCISE"},
+  {id:"gym",label:"Gym completed (2 sessions)",cat:"EXERCISE"},
+  {id:"run",label:"Run completed (1 session)",cat:"EXERCISE"},
+  {id:"alcohol",label:"Any alcohol taken this week?",cat:"RECOVERY"},
 ];
-const BLOODS = [
+const BLOODS=[
   {m:"Total Cholesterol",r:"7.32",o:"< 5.0",s:"high",n:"Too much cholesterol circulating. Driven by diet (saturated fat) and inactivity."},
   {m:"LDL Cholesterol",r:"4.72",o:"< 3.0",s:"high",n:"The 'bad' cholesterol. Deposits fat in blood vessel walls. Priority to reduce."},
   {m:"HDL Cholesterol",r:"1.33",o:"> 1.55",s:"low",n:"The 'good' cholesterol. Too low. Exercise and healthy fats raise this."},
@@ -266,7 +248,7 @@ const BLOODS = [
   {m:"Waist Circ.",r:"101 cm",o:"< 94",s:"amber",n:"Central fat. This is the number to watch shrink."},
   {m:"Testosterone",r:"10.9",o:"12–29",s:"amber",n:"In range but low for 32. Sleep, weight loss, reduced stress will help."},
 ];
-const SUPPS = [
+const SUPPS=[
   {name:"Vitamin D3",dose:"3000–4000 IU",when:"Morning, with food",why:"Level is 50 nmol/l — borderline. Target 75–100. Year-round in NI."},
   {name:"Omega-3 Fish Oil",dose:"2000–3000mg EPA+DHA",when:"Split AM/PM with meals",why:"Targets high triglycerides (2.8) and low HDL (1.33). Anti-inflammatory."},
   {name:"Magnesium Glycinate",dose:"300–400mg",when:"Evening, before bed",why:"Supports sleep quality, muscle recovery, blood pressure."},
@@ -274,19 +256,18 @@ const SUPPS = [
   {name:"Vitamin K2 (MK-7)",dose:"100–200mcg",when:"Morning, with Vit D",why:"Directs calcium to bones not arteries. Important with cholesterol profile."},
   {name:"Tart Cherry Extract",dose:"500mg or 30ml juice",when:"Evening",why:"Targets uric acid. Natural melatonin supports sleep."},
 ];
-const MOVES = [
+const MOVES=[
   {opt:"Neighbourhood walk",time:"20–30 min",best:"Morning or after dinner",tgt:"Cardiovascular health, BP, triglycerides, mental clarity"},
   {opt:"Phone call walk",time:"15–20 min",best:"During a business call",tgt:"Stacks movement with work. No extra time needed."},
   {opt:"Coffee walk",time:"15 min",best:"Mid-morning or afternoon",tgt:"Breaks the desk-sitting cycle."},
   {opt:"Stretch routine",time:"10–15 min",best:"Morning or evening",tgt:"Counteracts sitting. Hip flexors, hamstrings, thoracic spine."},
   {opt:"Bodyweight circuit",time:"15 min",best:"Any time at home",tgt:"Squats, press-ups, lunges, plank. 3 rounds. No equipment."},
   {opt:"Stairs",time:"10 min",best:"Any time",tgt:"5–10 trips up and down. Simple and effective."},
-  {opt:"Padel warm-up extension",time:"+15 min",best:"Before/after padel",tgt:"Proper warm-up or cool-down walk."},
   {opt:"Evening wind-down walk",time:"15–20 min",best:"After dinner",tgt:"Aids digestion, lowers blood sugar, improves sleep onset."},
   {opt:"Weekend activity",time:"30–60 min",best:"Sat or Sun",tgt:"Walk, kick a ball, wash the car, garden work."},
   {opt:"Breathwork + mobility",time:"10 min",best:"Before bed",tgt:"Deep breathing + gentle stretching. Lowers cortisol."},
 ];
-const SLEEPS = [
+const SLEEPS=[
   {rule:"Hard shutdown: 10:30pm",detail:"Phone on charge in another room. Laptop closed."},
   {rule:"In bed by 11pm",detail:"5 out of 7 nights. Weekends can flex to midnight max."},
   {rule:"No caffeine after 2pm",detail:"Half-life is 5–6 hours. A 4pm coffee is 50% active at 10pm."},
@@ -294,14 +275,14 @@ const SLEEPS = [
   {rule:"Wind-down routine after 10pm",detail:"Dim lights, read, breathwork, conversation."},
   {rule:"Consistent wake time",detail:"Same time daily (±30 min). Get daylight within 30 minutes."},
 ];
-const NUTR = [
+const NUTR=[
   {num:"01",title:"Protein at every meal",detail:"Palm-sized portion: chicken, fish, eggs, Greek yoghurt, beans. Keeps you full, preserves muscle, burns more energy to digest."},
   {num:"02",title:"Vegetables first",detail:"Fill half your plate before adding anything else. Single highest-impact change for cholesterol, inflammation, and weight. 5+ portions daily."},
   {num:"03",title:"Swap saturated for unsaturated fat",detail:"Your LDL is high because of saturated fat. Swap to olive oil, oily fish (2x per week), nuts, seeds, avocado. This is the cholesterol lever."},
   {num:"04",title:"Cut calorie-dense low-value inputs",detail:"Alcohol, sugary drinks, takeaways, crisps, late-night snacking. Max 2 alcohol nights per week. No sugary drinks."},
   {num:"05",title:"Front-load your day",detail:"Proper breakfast and lunch. Lighter in the evening. Helps blood sugar, sleep quality, and weight."},
 ];
-const REVIEW_FIELDS = [
+const REVIEW_FIELDS=[
   {key:"went_well",label:"What went well (2–3 things)",ml:true},
   {key:"didnt_work",label:"What didn't work",ml:true},
   {key:"biggest_win",label:"Biggest win",ml:false},
@@ -311,16 +292,31 @@ const REVIEW_FIELDS = [
   {key:"stress",label:"Stress level (1–10)",ml:false},
   {key:"notes",label:"Notes / thoughts",ml:true},
 ];
+const GYM_A=[
+  {name:"Goblet Squat",sets:"3 x 12",detail:"Hold dumbbell at chest, squat to parallel, drive back up."},
+  {name:"Dumbbell Bench Press",sets:"3 x 12",detail:"Flat bench, press dumbbells up, lower with control."},
+  {name:"Lat Pulldown",sets:"3 x 12",detail:"Wide grip, pull to upper chest, squeeze shoulder blades."},
+  {name:"Dumbbell Shoulder Press",sets:"3 x 10",detail:"Seated or standing, press overhead, lower to ear level."},
+  {name:"Dumbbell Row",sets:"3 x 12 each",detail:"One hand on bench, row dumbbell to hip, squeeze at top."},
+  {name:"Plank Hold",sets:"3 x 30 sec",detail:"Forearms on floor, body straight, brace your core."},
+];
+const GYM_B=[
+  {name:"Romanian Deadlift",sets:"3 x 12",detail:"Dumbbells in front of thighs, hinge at hips, feel hamstrings stretch."},
+  {name:"Incline Dumbbell Press",sets:"3 x 12",detail:"Bench at 30°, press dumbbells up, lower with control."},
+  {name:"Seated Cable Row",sets:"3 x 12",detail:"Sit tall, pull handle to stomach, squeeze shoulder blades."},
+  {name:"Lateral Raises",sets:"3 x 12",detail:"Slight bend in elbows, raise to shoulder height, lower slow."},
+  {name:"Leg Press",sets:"3 x 12",detail:"Feet shoulder-width, press away, don't lock knees."},
+  {name:"Dead Bug",sets:"3 x 10 each",detail:"On your back, opposite arm/leg extend, keep lower back flat."},
+];
 
-// ─── STORAGE ───────────────────────────────────────
-const SK="mark-hop-kpis", RK="mark-hop-reviews";
+const SK="mark-hop-kpis2",RK="mark-hop-reviews",GK="mark-hop-gym";
 function ld(k){try{const r=localStorage.getItem(k);return r?JSON.parse(r):{};}catch{return {};}}
 function sv(k,d){try{localStorage.setItem(k,JSON.stringify(d));}catch{}}
-let kpiData=ld(SK), reviewData=ld(RK), activeReviewWeek=0;
+let kpiData=ld(SK),reviewData=ld(RK),gymData=ld(GK),activeReviewWeek=0,activeGymWeek=0;
 
 // ─── NAV ───────────────────────────────────────────
 document.getElementById("nav").addEventListener("click",e=>{
-  const btn=e.target.closest(".nav-btn"); if(!btn) return;
+  const btn=e.target.closest(".nav-btn");if(!btn)return;
   document.querySelectorAll(".nav-btn").forEach(b=>b.classList.remove("active"));
   btn.classList.add("active");
   document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
@@ -329,35 +325,41 @@ document.getElementById("nav").addEventListener("click",e=>{
 
 // ─── DASHBOARD ─────────────────────────────────────
 function renderScores(){
-  const el=document.getElementById("scores"); el.innerHTML="";
+  const el=document.getElementById("scores");el.innerHTML="";
   for(let w=0;w<WEEKS;w++){
     const s=KPIS.reduce((a,k)=>a+(kpiData[k.id+"-"+w]?1:0),0);
-    const cls=s>=8?"good":s>=5?"ok":"";
-    el.innerHTML+=`<div class="score-card ${cls}"><div class="score-wk">WK ${w+1}</div><div class="score-num">${s}</div><div class="score-of">/10</div></div>`;
+    const total=KPIS.length;
+    const pct=s/total;
+    const cls=pct>=0.75?"good":pct>=0.5?"ok":"";
+    el.innerHTML+=`<div class="score-card ${cls}"><div class="score-wk">WK ${w+1}</div><div class="score-num">${s}</div><div class="score-of">/${total}</div></div>`;
   }
 }
 function renderKPIGrid(){
-  const el=document.getElementById("kpi-grid"); let h="";
+  const el=document.getElementById("kpi-grid");let h="";
   h+=`<div class="kpi-header"><div class="kpi-header-label">KPI</div>`;
-  for(let w=0;w<WEEKS;w++) h+=`<div class="kpi-header-wk">W${w+1}</div>`;
+  for(let w=0;w<WEEKS;w++)h+=`<div class="kpi-header-wk">W${w+1}</div>`;
   h+=`</div>`;
   KPIS.forEach(kpi=>{
-    h+=`<div class="kpi-row"><div class="kpi-name"><span class="kpi-cat">${kpi.cat}</span>${kpi.label}</div>`;
+    const cc=CAT[kpi.cat]||CAT.MOVEMENT;
+    h+=`<div class="kpi-row"><div class="kpi-name"><span class="kpi-cat" style="background:${cc.bg};color:${cc.color};border:1px solid ${cc.bdr}">${kpi.cat}</span>${kpi.label}</div>`;
     for(let w=0;w<WEEKS;w++){
       const on=kpiData[kpi.id+"-"+w];
-      h+=`<div class="kpi-cell"><button class="kpi-check ${on?"on":""}" data-id="${kpi.id}" data-w="${w}">${on?"✓":""}</button></div>`;
+      const onColor=cc.color;
+      const onBg=cc.bg;
+      const style=on?`border-color:${onColor};background:${onBg};color:${onColor}`:"";
+      h+=`<div class="kpi-cell"><button class="kpi-check ${on?"on":""}" style="${style}" data-id="${kpi.id}" data-w="${w}" data-cat="${kpi.cat}">${on?"✓":""}</button></div>`;
     }
     h+=`</div>`;
   });
   el.innerHTML=h;
 }
 document.getElementById("kpi-grid").addEventListener("click",e=>{
-  const btn=e.target.closest(".kpi-check"); if(!btn) return;
+  const btn=e.target.closest(".kpi-check");if(!btn)return;
   const key=btn.dataset.id+"-"+btn.dataset.w;
-  kpiData[key]=!kpiData[key]; sv(SK,kpiData);
-  renderScores(); renderKPIGrid();
+  kpiData[key]=!kpiData[key];sv(SK,kpiData);
+  renderScores();renderKPIGrid();
 });
-renderScores(); renderKPIGrid();
+renderScores();renderKPIGrid();
 
 // ─── BLOODS ────────────────────────────────────────
 (function(){
@@ -365,7 +367,7 @@ renderScores(); renderKPIGrid();
   BLOODS.forEach((b,i)=>{
     const sc=b.s==="amber"?"color-amber":"color-accent";
     const bc=b.s==="amber"?"card-left-amber":"card-left-accent";
-    el.innerHTML+=`<div class="card ${bc}" id="bc-${i}"><div class="card-row" onclick="document.getElementById('bd-${i}').classList.toggle('open')"><span class="card-marker">${b.m}</span><div><span class="card-result ${sc}">${b.r}</span><span class="card-opt">OPT: ${b.o}</span></div></div><div class="card-detail" id="bd-${i}">${b.n}</div></div>`;
+    el.innerHTML+=`<div class="card ${bc}"><div class="card-row" onclick="document.getElementById('bd-${i}').classList.toggle('open')"><span class="card-marker">${b.m}</span><div><span class="card-result ${sc}">${b.r}</span><span class="card-opt">OPT: ${b.o}</span></div></div><div class="card-detail" id="bd-${i}">${b.n}</div></div>`;
   });
 })();
 
@@ -401,9 +403,53 @@ renderScores(); renderKPIGrid();
   });
 })();
 
+// ─── GYM SESSIONS ──────────────────────────────────
+function renderGymWeekBtns(){
+  const el=document.getElementById("gym-week-btns");el.innerHTML="";
+  for(let i=0;i<WEEKS;i++){
+    const wk=gymData[i]||{};
+    const totalA=GYM_A.reduce((a,_,j)=>a+(wk["a-"+j]?1:0),0);
+    const totalB=GYM_B.reduce((a,_,j)=>a+(wk["b-"+j]?1:0),0);
+    const has=(totalA+totalB)>0;
+    const cls=i===activeGymWeek?"active":has?"has-data":"";
+    el.innerHTML+=`<button class="week-btn ${cls}" data-gwk="${i}">WK ${i+1}${has?" ✓":""}</button>`;
+  }
+}
+function renderGymSessions(){
+  const el=document.getElementById("gym-sessions");
+  const wk=gymData[activeGymWeek]||{};
+  let h=`<div class="gym-session"><div class="gym-session-title">SESSION A — PUSH & SQUAT</div><div class="gym-session-sub">Full body • 35–40 minutes • moderate weight</div>`;
+  GYM_A.forEach((ex,i)=>{
+    const on=wk["a-"+i];
+    h+=`<div class="gym-exercise"><button class="gym-check ${on?"on":""}" data-sess="a" data-idx="${i}">${on?"✓":""}</button><div><div class="gym-exname">${ex.name}</div><div class="gym-exdetail">${ex.detail}</div></div><div class="gym-sets">${ex.sets}</div></div>`;
+  });
+  h+=`</div>`;
+  h+=`<div class="gym-session"><div class="gym-session-title">SESSION B — PULL & HINGE</div><div class="gym-session-sub">Full body • 35–40 minutes • moderate weight</div>`;
+  GYM_B.forEach((ex,i)=>{
+    const on=wk["b-"+i];
+    h+=`<div class="gym-exercise"><button class="gym-check ${on?"on":""}" data-sess="b" data-idx="${i}">${on?"✓":""}</button><div><div class="gym-exname">${ex.name}</div><div class="gym-exdetail">${ex.detail}</div></div><div class="gym-sets">${ex.sets}</div></div>`;
+  });
+  h+=`</div>`;
+  h+=`<div class="alert"><strong>NOTES:</strong> Start light. The goal is completing the sessions, not lifting heavy. Rest 60–90 seconds between sets. If a machine is taken, swap for the dumbbell version. These sessions pair with Padel x2 and Run x1 to hit your 5 weekly exercise targets.</div>`;
+  el.innerHTML=h;
+}
+document.getElementById("gym-week-btns").addEventListener("click",e=>{
+  const btn=e.target.closest(".week-btn");if(!btn)return;
+  activeGymWeek=parseInt(btn.dataset.gwk);
+  renderGymWeekBtns();renderGymSessions();
+});
+document.getElementById("gym-sessions").addEventListener("click",e=>{
+  const btn=e.target.closest(".gym-check");if(!btn)return;
+  if(!gymData[activeGymWeek])gymData[activeGymWeek]={};
+  const key=btn.dataset.sess+"-"+btn.dataset.idx;
+  gymData[activeGymWeek][key]=!gymData[activeGymWeek][key];
+  sv(GK,gymData);renderGymWeekBtns();renderGymSessions();
+});
+renderGymWeekBtns();renderGymSessions();
+
 // ─── REVIEW ────────────────────────────────────────
 function renderWeekBtns(){
-  const el=document.getElementById("week-btns"); el.innerHTML="";
+  const el=document.getElementById("week-btns");el.innerHTML="";
   for(let i=0;i<WEEKS;i++){
     const has=reviewData[i]&&Object.values(reviewData[i]).some(v=>v);
     const cls=i===activeReviewWeek?"active":has?"has-data":"";
@@ -411,29 +457,29 @@ function renderWeekBtns(){
   }
 }
 function renderReviewForm(){
-  const el=document.getElementById("review-form"); el.innerHTML="";
+  const el=document.getElementById("review-form");el.innerHTML="";
   const wd=reviewData[activeReviewWeek]||{};
   REVIEW_FIELDS.forEach(f=>{
     const val=(wd[f.key]||"").replace(/"/g,"&quot;");
     if(f.ml){
       el.innerHTML+=`<div class="form-group"><label class="form-label">${f.label}</label><textarea class="form-textarea" rows="3" data-field="${f.key}">${wd[f.key]||""}</textarea></div>`;
-    } else {
+    }else{
       el.innerHTML+=`<div class="form-group"><label class="form-label">${f.label}</label><input class="form-input" type="text" value="${val}" data-field="${f.key}"></div>`;
     }
   });
 }
 document.getElementById("week-btns").addEventListener("click",e=>{
-  const btn=e.target.closest(".week-btn"); if(!btn) return;
+  const btn=e.target.closest(".week-btn");if(!btn)return;
   activeReviewWeek=parseInt(btn.dataset.wk);
-  renderWeekBtns(); renderReviewForm();
+  renderWeekBtns();renderReviewForm();
 });
 document.getElementById("review-form").addEventListener("input",e=>{
-  const field=e.target.dataset.field; if(!field) return;
-  if(!reviewData[activeReviewWeek]) reviewData[activeReviewWeek]={};
+  const field=e.target.dataset.field;if(!field)return;
+  if(!reviewData[activeReviewWeek])reviewData[activeReviewWeek]={};
   reviewData[activeReviewWeek][field]=e.target.value;
-  sv(RK,reviewData); renderWeekBtns();
+  sv(RK,reviewData);renderWeekBtns();
 });
-renderWeekBtns(); renderReviewForm();
+renderWeekBtns();renderReviewForm();
 </script>
 </body>
 </html>
